@@ -16,6 +16,7 @@ type SwapEvent struct {
 	// TODO: translate the tokens in amount into USDC value
 	// Exampe API call to get the price:
 	// curl -X 'GET' \ 'https://sqsprod.osmosis.zone/tokens/prices?base=uosmo&humanDenoms=false' \ -H 'accept: application/json'
+	// Note: this can be done at the data indexing stage or at the API stage. The choice is yours.
 	USDCValue     math.Int
 	SenderAddress string
 	PoolID        uint64
@@ -24,7 +25,7 @@ type SwapEvent struct {
 
 const (
 	archiveNodeAddress       = "https://rpc.archive.osmosis.zone:443"
-	pricesAPIAddress         = "https://api.coingecko.com/api/v3/simple/price?ids=osmosis&vs_currencies=usd"
+	pricesAPIAddress         = "https://sqs.osmosis.zone/tokens/prices?base=uosmo"
 	startBlock         int64 = 17777000
 	endBlock                 = 17777050
 )
@@ -56,27 +57,33 @@ func main() {
 			Height: curHeight,
 		}
 
+		// For every transaction in the block
 		for _, result := range results.TxsResults {
+
+			// Parse events
 			events := result.GetEvents()
 			for _, event := range events {
 
 				// Find swap event
 				if event.GetType() == gammtypes.TypeEvtTokenSwapped {
 
+					// Process swap event attrbutes to extract relevant data
+					// into the SwapEvent struct
 					attributes := event.GetAttributes()
-
 					for _, attr := range attributes {
 						// Parse tokens in
 						if string(attr.GetKey()) == gammtypes.AttributeKeyTokensIn {
 
 							inCoinStr := attr.GetValue()
 
+							// Parse the token in amount
 							inCoin, err := sdk.ParseCoinNormalized(inCoinStr)
 							if err != nil {
 								fmt.Println(err)
 								panic(err)
 							}
 
+							// Update the swap event struct
 							swapEvent.TokensIn = inCoin
 						}
 
@@ -90,6 +97,8 @@ func main() {
 
 		fmt.Println(swapEvent)
 
+		// This is done to avoid rate limiting
+		// Reach out to us if this becomes a problem so that we issue an API key.
 		time.Sleep(500 * time.Millisecond)
 	}
 

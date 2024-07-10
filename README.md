@@ -42,9 +42,9 @@ For simplicity, assume that clients would be querying at max 300 height interval
 
 ---
 
-1. Open the [starter project](https://github.com/osmosis-labs/swap-merkle-drop-take-home-starter)
+1. Open the [main.go](https://github.com/osmosis-labs/swap-merkle-drop-take-home-starter/blob/main/main.go)
     - Get familiar with TODOs
-    - Run the starter
+    - Run the starter `go run main.go`
     - Implement the remaining requirements of the service in Go.
 2. **Data Collection:**
     - The service should be started with a flag `startHeight`, specifying an initial height to start indexing from.
@@ -85,6 +85,7 @@ For simplicity, assume that clients would be querying at max 300 height interval
 - Include a `RESULTS.md` file with clear instructions on how to set up and run your service.
 - Feel free to use any framework of your choice.
 - Feel free to structure the service in the way you see fit.
+- Please do not use external Merkle tree libraries and create your own implementation.
 - Feel free to use ChatGPT for any step.
 - Reach out to us if you have any questions or need clarifications.
 
