@@ -13,7 +13,8 @@ Given these dynamic requirements and conditions, we aim to create a Merkle-drop 
 
 **Informational and Out-of-Scope**
 
-Fee rebate providers will upload the Merkle root on-chain while keeping the Merkle tree structure in their centralized storage. Clients will query their web service APIs for Merkle tree proofs and submit them on-chain. Upon verification, the fee rebate will be distributed to them according to the allocation specified by the fee rebate provider address.
+Fee rebate providers will upload the Merkle root on-chain while keeping the Merkle tree structure in their centralized storage. Clients will query their web service APIs for Merkle tree proofs and submit them on-chain. Upon verification, the fee rebate will be distributed to them according to the allocation specified by the fee rebate provider address. Note that this is not in-scope of 
+the service we are building. Rather, this is how the service we are building will be used.
 
 **Goals for Osmosis**
 
@@ -33,6 +34,8 @@ Create an off-chain service that:
         - `1` = Flat fee rebate
         - `2` = Proportional to volume
     6. `totalDistrCoin` (e.g. `100000000uosmo`) - total amount to split between users based on `strategy`
+3. The service is started as a single binary with a flag `startHeight` to specify the initial height to start indexing from.
+4. The service should index the data from the `startHeight` and up until the tip of the chain. Once the tip is reached, the indexing worker should continue running in the background.
 
 By following these requirements, the off-chain service will efficiently index and provide Merkle tree data for fee rebate providers to use in their rebate distribution schemes.
 
@@ -43,13 +46,13 @@ For simplicity, assume that clients would be querying at max 300 height interval
 ---
 
 1. Open the [main.go](https://github.com/osmosis-labs/swap-merkle-drop-take-home-starter/blob/main/main.go)
+    - We created a starter project for you to build upon that already queries the Osmosis API for block data
+    between two heights.
     - Get familiar with TODOs
     - Run the starter `go run main.go`
     - Implement the remaining requirements of the service in Go.
 2. **Data Collection:**
-    - The service should be started with a flag `startHeight`, specifying an initial height to start indexing from.
-    - It should index the data from the `startHeight` and up until the tip of the chain. Once the tip is reached, the indexing worker should continue running in the background.
-    - Retrieve swaap event details from each block.
+    - Retrieve swap event details from each block per earlier requirements.
     - Convert the token in amounts into USDC value
         - Note an additional API endpoint for getting the pricing data for converting token amounts into USDC. This is [its swagger](https://sqs.osmosis.zone/swagger/index.html#/default/get_tokens_prices).
     - Index the data in the format that you deem is appropriate for the requirements.
