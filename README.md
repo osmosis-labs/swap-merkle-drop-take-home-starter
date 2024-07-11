@@ -40,6 +40,8 @@ By following these requirements, the off-chain service will efficiently index an
 
 For simplicity, assume that clients would be querying at max 300 height intervals, making the payload size be appropriate for the data transfer.
 
+For simplicity, please only implement `strategy` `2` (Proportional to volume). For `1`, we make the query return unimplemented.
+
 ### Steps to Approach the Task
 
 ---
@@ -62,7 +64,8 @@ For simplicity, assume that clients would be querying at max 300 height interval
     - Refer to query parameters earlier in the document
     - Create a mapping from user address to total USDC volume in a given `poolID` between the `startHeight` and `endHeight`.
     - Filter out the users based on `volumeThreshold`
-    - Create a distribution allocation for each user based on `strategy` and `totalDistrCoin`
+    - Create a distribution allocation based on `totalDistrCoin` and using the `strategy` `2` (Proportional to volume).
+       * Note that `strategy` 1 can be skipped for simplicity.
     - Create a Merkle tree of the unique user allocations and return the full structure as part of the response.
         - Note the earlier assumption that the payload size is appropriate.
 

@@ -89,7 +89,7 @@ func main() {
 
 						// TODO:
 						// - Parse pool id from swap event
-						// - Parse sende address from swap event
+						// - Parse sender address from swap event
 					}
 				}
 			}
