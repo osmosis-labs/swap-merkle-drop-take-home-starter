@@ -108,7 +108,7 @@ func main() {
 	//    according to the chain's progress.
 	//    * Handle de-duplication as needed or overwrite existing data.
 	//    * Choose a suitable storage solution for the data.
-	//    * Convert tokens in amoun into USDC value for indexing volume.
+	//    * Convert tokens in amount into USDC value for indexing volume.
 	// - Expose web API
 	//    * Implement an API to construct a merkle tree of swaps made from the indexed data
 	// - Bonus

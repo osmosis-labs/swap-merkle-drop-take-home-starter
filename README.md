@@ -13,8 +13,7 @@ Given these dynamic requirements and conditions, we aim to create a Merkle-drop 
 
 **Informational and Out-of-Scope**
 
-Fee rebate providers will upload the Merkle root on-chain while keeping the Merkle tree structure in their centralized storage. Clients will query their web service APIs for Merkle tree proofs and submit them on-chain. Upon verification, the fee rebate will be distributed to them according to the allocation specified by the fee rebate provider address. Note that this is not in-scope of 
-the service we are building. Rather, this is how the service we are building will be used.
+Fee rebate providers will upload the Merkle root on-chain while keeping the Merkle tree structure in their centralized storage. Clients will query their web service APIs for Merkle tree proofs and submit them on-chain. Upon verification, the fee rebate will be distributed to them according to the allocation specified by the fee rebate provider address. Note that this is not in-scope of the service we are building. Rather, this is how the service we are building will be used.
 
 **Goals for Osmosis**
 
@@ -64,7 +63,7 @@ For simplicity, assume that clients would be querying at max 300 height interval
     - Create a mapping from user address to total USDC volume in a given `poolID` between the `startHeight` and `endHeight`.
     - Filter out the users based on `volumeThreshold`
     - Create a distribution allocation for each user based on `strategy` and `totalDistrCoin`
-    - Create a Merkle tree of the unique user allocations and return the full strucure as part of the response.
+    - Create a Merkle tree of the unique user allocations and return the full structure as part of the response.
         - Note the earlier assumption that the payload size is appropriate.
 
 ### Deliverables
