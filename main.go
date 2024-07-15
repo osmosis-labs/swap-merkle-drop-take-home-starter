@@ -91,11 +91,11 @@ func main() {
 						// - Parse pool id from swap event
 						// - Parse sender address from swap event
 					}
+
+					fmt.Println(swapEvent)
 				}
 			}
 		}
-
-		fmt.Println(swapEvent)
 
 		// This is done to avoid rate limiting
 		// Reach out to us if this becomes a problem so that we issue an API key.
